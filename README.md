@@ -1,1 +1,1 @@
-# react-hooks-parcel-typescript-sass-starter
+# test task for React Junior Dev 
