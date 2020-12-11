@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+}
+.addUserContainer {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+}
+.invisible {
+  display: none;
+}
+.visible {
+  display: block;
+}
+.error {
+  background-color: red;
+}
+.radiobuttonsCont {
+  background-color: white;
+}

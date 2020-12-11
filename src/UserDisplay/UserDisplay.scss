@@ -1,0 +1,47 @@
+html,
+body {
+  margin: 0;
+}
+.userCardContainer {
+  display: flex;
+  flex-direction: row;
+  textarea {
+    height: 20px;
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+  }
+  p {
+    margin: 0;
+  }
+}
+.userCardContainerEdit {
+  display: flex;
+  flex-direction: row;
+  textarea {
+    padding-left: 2px;
+    background-color: green;
+    height: 20px;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none;
+  }
+}
+.invisible {
+  display: none;
+}
+.visible {
+  display: block;
+}
+.error {
+  background-color: red;
+}
