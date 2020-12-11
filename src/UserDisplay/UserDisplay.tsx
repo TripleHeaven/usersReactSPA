@@ -15,7 +15,6 @@ export default function UserDisplay({ user }: { user: UserT }) {
     }
   }, []);
   const deleteUser = () => {
-    console.log(user.userID);
     setUser(
       users.filter((item: UserT) => {
         return user.userID !== item.userID;
@@ -30,15 +29,20 @@ export default function UserDisplay({ user }: { user: UserT }) {
       userPhone === ""
     ) {
       setErrorText("Not all fields are filled!");
-      document.getElementById(nametxtID).className = styles.error;
-      document.getElementById(mailtxtID).className = styles.error;
-      document.getElementById(passwordtxtID).className = styles.error;
-      document.getElementById(phonetxtID).className = styles.error;
+      (document.getElementById(nametxtID) as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById(mailtxtID) as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById(passwordtxtID) as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById(phonetxtID) as HTMLInputElement).className =
+        styles.error;
 
       setErrorStatus(styles.visible);
       return false;
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
-      document.getElementById(nametxtID).className = styles.error;
+      (document.getElementById(nametxtID) as HTMLInputElement).className =
+        styles.error;
       setErrorText("Wrong name!");
       setErrorStatus(styles.visible);
       return false;
@@ -49,12 +53,14 @@ export default function UserDisplay({ user }: { user: UserT }) {
     ) {
       setErrorText("Wrong email!");
       setErrorStatus(styles.visible);
-      document.getElementById(mailtxtID).className = styles.error;
+      (document.getElementById(mailtxtID) as HTMLInputElement).className =
+        styles.error;
       return false;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
       setErrorText("Please inter phone in +7 format");
       setErrorStatus(styles.visible);
-      document.getElementById(phonetxtID).className = styles.error;
+      (document.getElementById(phonetxtID) as HTMLInputElement).className =
+        styles.error;
       return false;
     } else {
       const newUsers = users;
@@ -157,7 +163,7 @@ export default function UserDisplay({ user }: { user: UserT }) {
   const UClient = user.userID.toString() + "client";
   const UPartner = user.userID.toString() + "partner";
   const UAdmin = user.userID.toString() + "admin";
-  console.log(rbuttonsID);
+
   return (
     <div className={containerStyle}>
       <form>
@@ -195,7 +201,7 @@ export default function UserDisplay({ user }: { user: UserT }) {
               type="radio"
               name="status"
               id={UClient}
-              onChange={(event) => setUserStatus("Client")}
+              onChange={() => setUserStatus("Client")}
               disabled
             ></input>
             <label htmlFor={UClient}>Client</label>
@@ -205,7 +211,7 @@ export default function UserDisplay({ user }: { user: UserT }) {
               type="radio"
               name="status"
               id={UPartner}
-              onChange={(event) => setUserStatus("Partner")}
+              onChange={() => setUserStatus("Partner")}
               disabled
             ></input>
             <label htmlFor={UPartner}>Partner</label>
@@ -215,7 +221,7 @@ export default function UserDisplay({ user }: { user: UserT }) {
               type="radio"
               name="status"
               id={UAdmin}
-              onChange={(event) => setUserStatus("Admin")}
+              onChange={() => setUserStatus("Admin")}
               disabled
             ></input>
             <label htmlFor={UAdmin}>Admin</label>

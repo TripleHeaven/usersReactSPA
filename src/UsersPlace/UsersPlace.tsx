@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./UsersPlace.scss";
 import { UserT } from "../TypesTS/UserT";
 import { Context } from "../handlerContext";
@@ -27,7 +27,11 @@ export default function UsersPlace() {
       lastChange: new Date(),
     },
   ]);
+  // users to show is a copy of all users
   const [usersToShow, setShowUsers] = useState(users);
+  useEffect(() => {
+    setShowUsers(users);
+  }, [users]);
   const addUser = () => {
     setUser([
       ...users,
@@ -43,15 +47,34 @@ export default function UsersPlace() {
       },
     ]);
   };
+  const filterByMain = () => {
+    filterByStatus(
+      (document.getElementById("selectedClass") as HTMLSelectElement).value
+    );
+  };
   const filterByStatus = (criteria: string) => {
-    let usersFiltered = users;
     if (criteria === "Empty") {
-      usersFiltered = users;
+      setShowUsers(users);
     } else {
-      usersFiltered = usersFiltered.filter(function(user) {
+      const newShowUsers = users.filter(function(user) {
         return user.status === criteria;
       });
+      setShowUsers(newShowUsers);
     }
+  };
+  const filterThing = (letter: string) => {
+    let newShowUsers = users;
+    if (document.getElementById("selectedClass").value === "Empty") {
+      setShowUsers(users);
+    } else {
+      newShowUsers = newShowUsers.filter(function(user) {
+        return user.status === document.getElementById("selectedClass").value;
+      });
+    }
+    newShowUsers = newShowUsers.filter((userItem) => {
+      return userItem.email.toLowerCase().includes(letter);
+    });
+    setShowUsers(newShowUsers);
   };
   const processAdding = () => {
     if (
@@ -62,14 +85,20 @@ export default function UsersPlace() {
       userPhone === ""
     ) {
       setErrorText("Not all fields are filled!");
-      document.getElementById("name").className = styles.error;
-      document.getElementById("email").className = styles.error;
-      document.getElementById("password").className = styles.error;
-      document.getElementById("phone").className = styles.error;
-      document.getElementById("rbuttons").className = styles.error;
+      (document.getElementById("name") as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById("email") as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById("password") as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById("phone") as HTMLInputElement).className =
+        styles.error;
+      (document.getElementById("rbuttons") as HTMLInputElement).className =
+        styles.error;
       setErrorStatus(styles.visible);
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
-      document.getElementById("name").className = styles.error;
+      (document.getElementById("name") as HTMLInputElement).className =
+        styles.error;
       setErrorText("Wrong name!");
       setErrorStatus(styles.visible);
     } else if (
@@ -79,15 +108,18 @@ export default function UsersPlace() {
     ) {
       setErrorText("Wrong email!");
       setErrorStatus(styles.visible);
-      document.getElementById("email").className = styles.error;
+      (document.getElementById("email") as HTMLInputElement).className =
+        styles.error;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
       setErrorText("Please inter phone in +7 format");
       setErrorStatus(styles.visible);
-      document.getElementById("phone").className = styles.error;
+      (document.getElementById("phone") as HTMLInputElement).className =
+        styles.error;
     } else if (userStatus === "unchanged") {
       setErrorText("You haven't chosen the status of user!");
       setErrorStatus(styles.visible);
-      document.getElementById("rbuttons").className = styles.error;
+      (document.getElementById("rbuttons") as HTMLInputElement).className =
+        styles.error;
     } else {
       setErrorText("none");
       setErrorStatus(styles.invisible);
@@ -101,7 +133,7 @@ export default function UsersPlace() {
   const [userStatus, setUserStatus] = useState<string>("unchanged");
   const [userPassword, setUserPassword] = useState<string>("");
   const [userPhone, setUserPhone] = useState<string>("");
-
+  const [seatchField, setSearch] = useState<string>("");
   return (
     <Context.Provider value={{ users, setUser }}>
       <div className={styles.container}>
@@ -176,11 +208,7 @@ export default function UsersPlace() {
             <select
               id="selectedClass"
               onChange={() =>
-                filterByStatus(
-                  (document.getElementById(
-                    "selectedClass"
-                  ) as HTMLSelectElement).value
-                )
+                filterThing(document.getElementById("searchText").value)
               }
             >
               <option value="Empty">Empty</option>
@@ -188,8 +216,17 @@ export default function UsersPlace() {
               <option value="Partner">Partner</option>
               <option value="Admin">Admin</option>
             </select>
+            <input
+              id="searchText"
+              onChange={(e) => {
+                setSearch(e.target.value);
+                filterThing(document.getElementById("searchText").value);
+              }}
+              type="text"
+              value={seatchField}
+            ></input>
           </div>
-          {users?.map((item) => (
+          {usersToShow.map((item) => (
             <UserDisplay key={item.userID} user={item}></UserDisplay>
           ))}
         </div>
