@@ -12,11 +12,22 @@ export default function UsersPlace() {
       password: "12345",
       phone: "+79057372242",
       name: "Hay hay hay",
+      status: "Partner",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "2",
+      email: "hafffyu@gmail.com",
+      password: "12345",
+      phone: "+79057372242",
+      name: "Hay hay hay",
       status: "Client",
       dateCreated: new Date(),
       lastChange: new Date(),
     },
   ]);
+  const [usersToShow, setShowUsers] = useState(users);
   const addUser = () => {
     setUser([
       ...users,
@@ -31,6 +42,16 @@ export default function UsersPlace() {
         lastChange: new Date(),
       },
     ]);
+  };
+  const filterByStatus = (criteria: string) => {
+    let usersFiltered = users;
+    if (criteria === "Empty") {
+      usersFiltered = users;
+    } else {
+      usersFiltered = usersFiltered.filter(function(user) {
+        return user.status === criteria;
+      });
+    }
   };
   const processAdding = () => {
     if (
@@ -151,6 +172,23 @@ export default function UsersPlace() {
           </button>
         </div>
         <div className={styles.usersList}>
+          <div className={styles.filterContainer}>
+            <select
+              id="selectedClass"
+              onChange={() =>
+                filterByStatus(
+                  (document.getElementById(
+                    "selectedClass"
+                  ) as HTMLSelectElement).value
+                )
+              }
+            >
+              <option value="Empty">Empty</option>
+              <option value="Client">Client</option>
+              <option value="Partner">Partner</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
           {users?.map((item) => (
             <UserDisplay key={item.userID} user={item}></UserDisplay>
           ))}

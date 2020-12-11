@@ -7,17 +7,18 @@ export default function UserDisplay({ user }: { user: UserT }) {
   const { users, setUser } = useContext(Context);
   useEffect(() => {
     if (user.status === "Client") {
-      (document.getElementById("UClient") as HTMLInputElement).checked = true;
+      (document.getElementById(UClient) as HTMLInputElement).checked = true;
     } else if (user.status === "Partner") {
-      (document.getElementById("UPartner") as HTMLInputElement).checked = true;
+      (document.getElementById(UPartner) as HTMLInputElement).checked = true;
     } else {
-      (document.getElementById("UAdmin") as HTMLInputElement).checked = true;
+      (document.getElementById(UAdmin) as HTMLInputElement).checked = true;
     }
   }, []);
   const deleteUser = () => {
+    console.log(user.userID);
     setUser(
-      users.filter((user: UserT) => {
-        return user.userID !== user.userID;
+      users.filter((item: UserT) => {
+        return user.userID !== item.userID;
       })
     );
   };
@@ -29,15 +30,15 @@ export default function UserDisplay({ user }: { user: UserT }) {
       userPhone === ""
     ) {
       setErrorText("Not all fields are filled!");
-      document.getElementById("uname").className = styles.error;
-      document.getElementById("umail").className = styles.error;
-      document.getElementById("password").className = styles.error;
-      document.getElementById("phone").className = styles.error;
-      document.getElementById("rbuttons").className = styles.error;
+      document.getElementById(nametxtID).className = styles.error;
+      document.getElementById(mailtxtID).className = styles.error;
+      document.getElementById(passwordtxtID).className = styles.error;
+      document.getElementById(phonetxtID).className = styles.error;
+
       setErrorStatus(styles.visible);
       return false;
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
-      document.getElementById("uname").className = styles.error;
+      document.getElementById(nametxtID).className = styles.error;
       setErrorText("Wrong name!");
       setErrorStatus(styles.visible);
       return false;
@@ -48,12 +49,12 @@ export default function UserDisplay({ user }: { user: UserT }) {
     ) {
       setErrorText("Wrong email!");
       setErrorStatus(styles.visible);
-      document.getElementById("umail").className = styles.error;
+      document.getElementById(mailtxtID).className = styles.error;
       return false;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
       setErrorText("Please inter phone in +7 format");
       setErrorStatus(styles.visible);
-      document.getElementById("uphone").className = styles.error;
+      document.getElementById(phonetxtID).className = styles.error;
       return false;
     } else {
       const newUsers = users;
@@ -101,28 +102,30 @@ export default function UserDisplay({ user }: { user: UserT }) {
   const enterEditMod = () => {
     setContStyle(styles.userCardContainerEdit);
     setEditButtonTxt("Done");
-    (document.getElementById("uname") as HTMLInputElement).readOnly = false;
-    (document.getElementById("uphone") as HTMLInputElement).readOnly = false;
-    (document.getElementById("umail") as HTMLInputElement).readOnly = false;
-    (document.getElementById("upassword") as HTMLInputElement).readOnly = false;
-    (document.getElementById("UClient") as HTMLInputElement).disabled = false;
-    (document.getElementById("UPartner") as HTMLInputElement).disabled = false;
-    (document.getElementById("UAdmin") as HTMLInputElement).disabled = false;
+    (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = false;
+    (document.getElementById(phonetxtID) as HTMLInputElement).readOnly = false;
+    (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = false;
+    (document.getElementById(
+      passwordtxtID
+    ) as HTMLInputElement).readOnly = false;
+    (document.getElementById(UClient) as HTMLInputElement).disabled = false;
+    (document.getElementById(UPartner) as HTMLInputElement).disabled = false;
+    (document.getElementById(UAdmin) as HTMLInputElement).disabled = false;
   };
 
   const exitEditMod = () => {
     if (processEditing()) {
       setContStyle(styles.userCardContainer);
       setEditButtonTxt("Edit");
-      (document.getElementById("uname") as HTMLInputElement).readOnly = true;
-      (document.getElementById("uphone") as HTMLInputElement).readOnly = true;
-      (document.getElementById("umail") as HTMLInputElement).readOnly = true;
+      (document.getElementById(nametxtID) as HTMLInputElement).readOnly = true;
+      (document.getElementById(phonetxtID) as HTMLInputElement).readOnly = true;
+      (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = true;
       (document.getElementById(
-        "upassword"
+        passwordtxtID
       ) as HTMLInputElement).readOnly = true;
-      (document.getElementById("UClient") as HTMLInputElement).disabled = true;
-      (document.getElementById("UPartner") as HTMLInputElement).disabled = true;
-      (document.getElementById("UAdmin") as HTMLInputElement).disabled = true;
+      (document.getElementById(UClient) as HTMLInputElement).disabled = true;
+      (document.getElementById(UPartner) as HTMLInputElement).disabled = true;
+      (document.getElementById(UAdmin) as HTMLInputElement).disabled = true;
     }
     setLastChanged(new Date());
     setContStyle(styles.userCardContainer);
@@ -144,69 +147,81 @@ export default function UserDisplay({ user }: { user: UserT }) {
   const [userPhone, setUserPhone] = useState<string>(user.phone);
   const [editButtonTxt, setEditButtonTxt] = useState<string>("Edit");
   const [lastChanged, setLastChanged] = useState(user.lastChange);
+
+  // getting unique id names for attributes
+  const nametxtID = user.userID.toString() + userName;
+  const phonetxtID = user.userID.toString() + userPhone;
+  const passwordtxtID = user.userID.toString() + userPassword;
+  const mailtxtID = user.userID.toString() + userMail;
+  const rbuttonsID = user.userID.toString() + userStatus;
+  const UClient = user.userID.toString() + "client";
+  const UPartner = user.userID.toString() + "partner";
+  const UAdmin = user.userID.toString() + "admin";
+  console.log(rbuttonsID);
   return (
     <div className={containerStyle}>
-      <textarea
-        id="uname"
-        onChange={(event) => setUserName(event.target.value)}
-        className={styles.unstyled}
-        value={userName}
-        readOnly
-      ></textarea>
-      <textarea
-        id="uphone"
-        onChange={(event) => setUserPhone(event.target.value)}
-        className={styles.unstyled}
-        value={userPhone}
-        readOnly
-      ></textarea>
-      <textarea
-        id="umail"
-        onChange={(event) => setUserMail(event.target.value)}
-        className={styles.unstyled}
-        value={userMail}
-        readOnly
-      ></textarea>
-      <textarea
-        id="upassword"
-        onChange={(event) => setUserPassword(event.target.value)}
-        className={styles.unstyled}
-        value={userPassword}
-        readOnly
-      ></textarea>
-      <div id="rbuttons" className={styles.radiobuttonsCont}>
-        <div>
-          <input
-            type="radio"
-            name="status"
-            id="UClient"
-            value="1"
-            onChange={(event) => setUserStatus("Client")}
-            disabled
-          ></input>
-          <label htmlFor="UClient">Client</label>
+      <form>
+        <textarea
+          id={nametxtID}
+          onChange={(event) => setUserName(event.target.value)}
+          className={styles.unstyled}
+          value={userName}
+          readOnly
+        ></textarea>
+        <textarea
+          id={phonetxtID}
+          onChange={(event) => setUserPhone(event.target.value)}
+          className={styles.unstyled}
+          value={userPhone}
+          readOnly
+        ></textarea>
+        <textarea
+          id={mailtxtID}
+          onChange={(event) => setUserMail(event.target.value)}
+          className={styles.unstyled}
+          value={userMail}
+          readOnly
+        ></textarea>
+        <textarea
+          id={passwordtxtID}
+          onChange={(event) => setUserPassword(event.target.value)}
+          className={styles.unstyled}
+          value={userPassword}
+          readOnly
+        ></textarea>
+        <div id={rbuttonsID} className={styles.radiobuttonsCont}>
+          <div>
+            <input
+              type="radio"
+              name="status"
+              id={UClient}
+              onChange={(event) => setUserStatus("Client")}
+              disabled
+            ></input>
+            <label htmlFor={UClient}>Client</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="status"
+              id={UPartner}
+              onChange={(event) => setUserStatus("Partner")}
+              disabled
+            ></input>
+            <label htmlFor={UPartner}>Partner</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="status"
+              id={UAdmin}
+              onChange={(event) => setUserStatus("Admin")}
+              disabled
+            ></input>
+            <label htmlFor={UAdmin}>Admin</label>
+          </div>
         </div>
-        <div>
-          <input
-            type="radio"
-            name="status"
-            id="UPartner"
-            onChange={(event) => setUserStatus("Partner")}
-            disabled
-          ></input>
-          <label htmlFor="UPartner">Partner</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="status"
-            id="UAdmin"
-            onChange={(event) => setUserStatus("Admin")}
-            disabled
-          ></input>
-          <label htmlFor="UAdmin">Admin</label>
-        </div>
-      </div>
+      </form>
       <p>{showDate(user.dateCreated)}&nbsp;</p>
       <p>{showDate(lastChanged)}</p>
 
