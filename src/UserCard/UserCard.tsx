@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import styles from "./UserDisplay.scss";
+import styles from "./UserCard.scss";
 import { UserT } from "../TypesTS/UserT";
 import { Context } from "../handlerContext";
 // contain main functionality containing storing deleting etc. for clients
-export default function UserDisplay({ user }: { user: UserT }) {
+export default function UserCard({ user }: { user: UserT }) {
   const { users, setUser } = useContext(Context);
   useEffect(() => {
     if (user.status === "Client") {

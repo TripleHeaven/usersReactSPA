@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./UsersPlace.scss";
 import { UserT } from "../TypesTS/UserT";
 import { Context } from "../handlerContext";
-import UserDisplay from "../UserDisplay/UserDisplay";
+import UserCard from "../UserCard/UserCard";
 // contain main functionality containing storing deleting etc. for clients
 export default function UsersPlace() {
   const [users, setUser] = useState<UserT[]>([
@@ -298,6 +298,7 @@ export default function UsersPlace() {
             Add user
           </button>
         </div>
+        {/*  */}
         <div className={styles.usersList}>
           <div className={styles.filterContainer}>
             <div className={styles.filterLabel}>Filter by status</div>
@@ -341,10 +342,11 @@ export default function UsersPlace() {
           </div>
           <div className={styles.usersTable}>
             {usersToShow.map((item) => (
-              <UserDisplay key={item.userID} user={item}></UserDisplay>
+              <UserCard key={item.userID} user={item}></UserCard>
             ))}
           </div>
         </div>
+        {/*  */}
       </div>
     </Context.Provider>
   );
