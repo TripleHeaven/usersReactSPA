@@ -142,7 +142,7 @@ export default function UsersPlace() {
       setShowUsers(newShowUsers);
     }
   };
-  const filterThing = (letter: string) => {
+  const filterThing = (letter: string, phoneN: string) => {
     let newShowUsers = users;
     if (document.getElementById("selectedClass").value === "Empty") {
       setShowUsers(users);
@@ -153,6 +153,9 @@ export default function UsersPlace() {
     }
     newShowUsers = newShowUsers.filter((userItem) => {
       return userItem.email.toLowerCase().includes(letter);
+    });
+    newShowUsers = newShowUsers.filter((userItem) => {
+      return userItem.phone.toLowerCase().includes(phoneN);
     });
     setShowUsers(newShowUsers);
   };
@@ -214,6 +217,7 @@ export default function UsersPlace() {
   const [userPassword, setUserPassword] = useState<string>("");
   const [userPhone, setUserPhone] = useState<string>("");
   const [seatchField, setSearch] = useState<string>("");
+  const [seatchFieldPhone, setSearchPhone] = useState<string>("");
   return (
     <Context.Provider value={{ users, setUser }}>
       <div className={styles.container}>
@@ -313,13 +317,27 @@ export default function UsersPlace() {
               id="searchText"
               onChange={(e) => {
                 setSearch(e.target.value);
-                filterThing(document.getElementById("searchText").value);
+                filterThing(
+                  document.getElementById("searchText").value,
+                  document.getElementById("searchPhone").value
+                );
               }}
               type="text"
               value={seatchField}
             ></input>
             <div className={styles.filterLabel}>Filter by phone</div>
-            {/* <input id="searchPhone" type="text" value={seatchField}></input> */}
+            <input
+              id="searchPhone"
+              type="text"
+              onChange={(e) => {
+                setSearchPhone(e.target.value);
+                filterThing(
+                  document.getElementById("searchText").value,
+                  document.getElementById("searchPhone").value
+                );
+              }}
+              value={seatchFieldPhone}
+            ></input>
           </div>
           <div className={styles.usersTable}>
             {usersToShow.map((item) => (
