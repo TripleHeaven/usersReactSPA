@@ -5,35 +5,164 @@ body {
 .userCardContainer {
   display: flex;
   flex-direction: row;
-  textarea {
+  justify-content: space-between;
+  border: solid;
+  border-width: 0.01rem;
+  border-color: rgba($color: #000000, $alpha: 0.2);
+  border-radius: 4px;
+  margin-top: 5px;
+  min-width: 905px;
+  margin-bottom: 3px;
+  padding: 5px;
+
+  .rbThing {
+    display: flex;
+    flex-direction: row;
+    label {
+      margin-top: 3px;
+      margin-right: 2px;
+    }
+  }
+  input[type="text"] {
+    margin: 0;
+    width: 120px;
     height: 20px;
     border: none;
     overflow: auto;
     outline: none;
-
+    font-size: 0.8rem;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-
     resize: none;
   }
   p {
+    margin: 0;
+  }
+  .radiobuttonsCont {
+    display: flex;
+    font-size: 0.7rem;
+  }
+  button {
+    display: inline-block;
+    border: none;
+    width: 40px;
+    height: 100%;
+    min-width: 40px;
+    border-radius: 2px;
+    margin: 2px;
+
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 0.7rem;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  button:hover,
+  button:focus {
+    background: #0053ba;
+  }
+
+  button:active {
+    transform: scale(0.99);
+  }
+  input[type="text"]::-webkit-inner-spin-button,
+  input[type="text"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
     margin: 0;
   }
 }
 .userCardContainerEdit {
   display: flex;
   flex-direction: row;
-  textarea {
-    padding-left: 2px;
-    background-color: green;
+  justify-content: space-between;
+  border: solid;
+  border-width: 0.01rem;
+  border-color: rgba($color: #000000, $alpha: 0.2);
+  border-radius: 4px;
+  margin-top: 5px;
+  min-width: 905px;
+  margin-bottom: 3px;
+  padding: 5px;
+  .rbThing {
+    display: flex;
+    flex-direction: row;
+    label {
+      margin-top: 3px;
+      margin-right: 2px;
+    }
+  }
+  input[type="text"] {
+    margin: 0;
+    width: 120px;
     height: 20px;
     border: none;
+    overflow: auto;
+    background-color: rgba($color: #ff7d00, $alpha: 0.7);
     outline: none;
+    font-size: 0.8rem;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     resize: none;
+  }
+  p {
+    margin: 0;
+  }
+  .radiobuttonsCont {
+    display: flex;
+    font-size: 0.7rem;
+  }
+  button {
+    display: inline-block;
+    border: none;
+    width: 40px;
+    height: 100%;
+    min-width: 40px;
+    border-radius: 2px;
+    margin: 2px;
+
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 0.7rem;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  button:hover,
+  button:focus {
+    background: #0053ba;
+  }
+
+  button:active {
+    transform: scale(0.99);
+  }
+  input[type="text"]::-webkit-inner-spin-button,
+  input[type="text"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.categoryElement {
+  display: flex;
+  flex-direction: column;
+  .categoryName {
+    font-size: 12px;
+    color: rgba($color: #000000, $alpha: 0.6);
+  }
+  .date {
+    font-size: 10px;
   }
 }
 .invisible {

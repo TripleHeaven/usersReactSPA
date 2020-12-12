@@ -22,27 +22,26 @@ export default function UserDisplay({ user }: { user: UserT }) {
     );
   };
   const processEditing = () => {
-    if (
-      userName === "" ||
-      userMail === "" ||
-      userPassword === "" ||
-      userPhone === ""
-    ) {
+    if (userName === "" || userMail === "" || userPhone === "") {
       setErrorText("Not all fields are filled!");
-      (document.getElementById(nametxtID) as HTMLInputElement).className =
-        styles.error;
-      (document.getElementById(mailtxtID) as HTMLInputElement).className =
-        styles.error;
-      (document.getElementById(passwordtxtID) as HTMLInputElement).className =
-        styles.error;
-      (document.getElementById(phonetxtID) as HTMLInputElement).className =
-        styles.error;
-
+      (document.getElementById(
+        nametxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
+      (document.getElementById(
+        mailtxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
+      (document.getElementById(
+        passwordtxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
+      (document.getElementById(
+        phonetxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
       setErrorStatus(styles.visible);
       return false;
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
-      (document.getElementById(nametxtID) as HTMLInputElement).className =
-        styles.error;
+      (document.getElementById(
+        nametxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
       setErrorText("Wrong name!");
       setErrorStatus(styles.visible);
       return false;
@@ -53,14 +52,19 @@ export default function UserDisplay({ user }: { user: UserT }) {
     ) {
       setErrorText("Wrong email!");
       setErrorStatus(styles.visible);
-      (document.getElementById(mailtxtID) as HTMLInputElement).className =
-        styles.error;
+      (document.getElementById(
+        mailtxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
       return false;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
       setErrorText("Please inter phone in +7 format");
       setErrorStatus(styles.visible);
-      (document.getElementById(phonetxtID) as HTMLInputElement).className =
-        styles.error;
+      (document.getElementById(
+        phonetxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
+      return false;
+    } else if (document.getElementById(passwordtxtID).value === "") {
+      document.getElementById(passwordtxtID).style.backgroundColor = "red";
       return false;
     } else {
       const newUsers = users;
@@ -94,7 +98,10 @@ export default function UserDisplay({ user }: { user: UserT }) {
       }
     };
     return (
-      m.getUTCFullYear() +
+      m
+        .getUTCFullYear()
+        .toString()
+        .slice(2) +
       "/" +
       (m.getUTCMonth() + 1) +
       "/" +
@@ -129,16 +136,30 @@ export default function UserDisplay({ user }: { user: UserT }) {
       (document.getElementById(
         passwordtxtID
       ) as HTMLInputElement).readOnly = true;
+      (document.getElementById(
+        nametxtID
+      ) as HTMLInputElement).style.backgroundColor = "white";
+      (document.getElementById(phonetxtID) as any).style.backgroundColor =
+        "white";
+      (document.getElementById(mailtxtID) as any).style.backgroundColor =
+        "white";
+      (document.getElementById(passwordtxtID) as any).backgroundColor = "white";
+      (document.getElementById(phonetxtID) as HTMLInputElement).readOnly = true;
+      (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = true;
+      (document.getElementById(
+        passwordtxtID
+      ) as HTMLInputElement).readOnly = true;
       (document.getElementById(UClient) as HTMLInputElement).disabled = true;
       (document.getElementById(UPartner) as HTMLInputElement).disabled = true;
       (document.getElementById(UAdmin) as HTMLInputElement).disabled = true;
+      setLastChanged(new Date());
+      setContStyle(styles.userCardContainer);
     }
-    setLastChanged(new Date());
-    setContStyle(styles.userCardContainer);
   };
   const actionEditHandler = () => {
     if (containerStyle === styles.userCardContainerEdit) {
       exitEditMod();
+    } else if (!processEditing()) {
     } else {
       enterEditMod();
     }
@@ -166,74 +187,115 @@ export default function UserDisplay({ user }: { user: UserT }) {
 
   return (
     <div className={containerStyle}>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Name</div>
+        <div className={styles.categoryValue}>
+          {" "}
+          <input
+            type="text"
+            id={nametxtID}
+            onChange={(event) => setUserName(event.target.value)}
+            className={styles.unstyled}
+            value={userName}
+            readOnly
+          ></input>
+        </div>
+      </div>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Phone</div>
+        <div className={styles.categoryValue}>
+          <input
+            type="text"
+            id={phonetxtID}
+            onChange={(event) => setUserPhone(event.target.value)}
+            className={styles.unstyled}
+            value={userPhone}
+            readOnly
+          ></input>
+        </div>
+      </div>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Email</div>
+        <div className={styles.categoryValue}>
+          <input
+            type="text"
+            id={mailtxtID}
+            onChange={(event) => setUserMail(event.target.value)}
+            className={styles.unstyled}
+            value={userMail}
+            readOnly
+          ></input>
+        </div>
+      </div>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Password</div>
+        <div className={styles.categoryValue}>
+          {" "}
+          <input
+            type="text"
+            id={passwordtxtID}
+            onChange={(event) => setUserPassword(event.target.value)}
+            className={styles.unstyled}
+            value={userPassword}
+            readOnly
+          ></input>
+        </div>
+      </div>
       <form>
-        <textarea
-          id={nametxtID}
-          onChange={(event) => setUserName(event.target.value)}
-          className={styles.unstyled}
-          value={userName}
-          readOnly
-        ></textarea>
-        <textarea
-          id={phonetxtID}
-          onChange={(event) => setUserPhone(event.target.value)}
-          className={styles.unstyled}
-          value={userPhone}
-          readOnly
-        ></textarea>
-        <textarea
-          id={mailtxtID}
-          onChange={(event) => setUserMail(event.target.value)}
-          className={styles.unstyled}
-          value={userMail}
-          readOnly
-        ></textarea>
-        <textarea
-          id={passwordtxtID}
-          onChange={(event) => setUserPassword(event.target.value)}
-          className={styles.unstyled}
-          value={userPassword}
-          readOnly
-        ></textarea>
-        <div id={rbuttonsID} className={styles.radiobuttonsCont}>
-          <div>
-            <input
-              type="radio"
-              name="status"
-              id={UClient}
-              onChange={() => setUserStatus("Client")}
-              disabled
-            ></input>
-            <label htmlFor={UClient}>Client</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="status"
-              id={UPartner}
-              onChange={() => setUserStatus("Partner")}
-              disabled
-            ></input>
-            <label htmlFor={UPartner}>Partner</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="status"
-              id={UAdmin}
-              onChange={() => setUserStatus("Admin")}
-              disabled
-            ></input>
-            <label htmlFor={UAdmin}>Admin</label>
+        <div className={styles.categoryElement}>
+          <div className={styles.categoryName}>Status</div>
+          <div className={styles.categoryValue}>
+            <div id={rbuttonsID} className={styles.radiobuttonsCont}>
+              <div className={styles.rbThing}>
+                <input
+                  type="radio"
+                  name="status"
+                  id={UClient}
+                  onChange={() => setUserStatus("Client")}
+                  disabled
+                ></input>
+                <label htmlFor={UClient}>Client</label>
+              </div>
+              <div className={styles.rbThing}>
+                <input
+                  type="radio"
+                  name="status"
+                  id={UPartner}
+                  onChange={() => setUserStatus("Partner")}
+                  disabled
+                ></input>
+                <label htmlFor={UPartner}>Partner</label>
+              </div>
+              <div className={styles.rbThing}>
+                <input
+                  type="radio"
+                  name="status"
+                  id={UAdmin}
+                  onChange={() => setUserStatus("Admin")}
+                  disabled
+                ></input>
+                <label htmlFor={UAdmin}>Admin</label>
+              </div>
+            </div>
           </div>
         </div>
       </form>
-      <p>{showDate(user.dateCreated)}&nbsp;</p>
-      <p>{showDate(lastChanged)}</p>
-
-      <button onClick={() => actionEditHandler()}>{editButtonTxt}</button>
-      <button onClick={() => deleteUser()}>Delete</button>
-      <div className={errorStatus}>{errorText}</div>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Created</div>
+        <div className={styles.categoryValue}>
+          <div className={styles.date}>{showDate(user.dateCreated)}&nbsp;</div>
+        </div>
+      </div>
+      <div className={styles.categoryElement}>
+        <div className={styles.categoryName}>Last Change</div>
+        <div className={styles.categoryValue}>
+          <div className={styles.date}> {showDate(lastChanged)}</div>
+        </div>
+      </div>
+      <div className={styles.buttons}>
+        <button onClick={() => actionEditHandler()}>{editButtonTxt}</button>
+        <button onClick={() => deleteUser()}>Delete</button>
+      </div>
     </div>
   );
 }

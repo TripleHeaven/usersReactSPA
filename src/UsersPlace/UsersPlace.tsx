@@ -26,6 +26,86 @@ export default function UsersPlace() {
       dateCreated: new Date(),
       lastChange: new Date(),
     },
+    {
+      userID: "4",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "5",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "6",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "7",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "8",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "9",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "9333",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
+    {
+      userID: "10",
+      email: "ha3fffyu@gmail.com",
+      password: "12345",
+      phone: "+71057372242",
+      name: "Hay fffffhay hay",
+      status: "Client",
+      dateCreated: new Date(),
+      lastChange: new Date(),
+    },
   ]);
   // users to show is a copy of all users
   const [usersToShow, setShowUsers] = useState(users);
@@ -94,7 +174,7 @@ export default function UsersPlace() {
       (document.getElementById("phone") as HTMLInputElement).className =
         styles.error;
       (document.getElementById("rbuttons") as HTMLInputElement).className =
-        styles.error;
+        styles.errorRb;
       setErrorStatus(styles.visible);
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
       (document.getElementById("name") as HTMLInputElement).className =
@@ -119,7 +199,7 @@ export default function UsersPlace() {
       setErrorText("You haven't chosen the status of user!");
       setErrorStatus(styles.visible);
       (document.getElementById("rbuttons") as HTMLInputElement).className =
-        styles.error;
+        styles.errorRb;
     } else {
       setErrorText("none");
       setErrorStatus(styles.invisible);
@@ -139,63 +219,74 @@ export default function UsersPlace() {
       <div className={styles.container}>
         <div className={styles.addUserContainer}>
           <form>
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              className={styles.inputInfo}
-              onChange={(event) => setUserName(event.target.value)}
-            ></input>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              className={styles.inputInfo}
-              onChange={(event) => setUserMail(event.target.value)}
-            ></input>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              className={styles.inputInfo}
-              onChange={(event) => setUserPassword(event.target.value)}
-            ></input>
-            <label htmlFor="phone">Phone</label>
-            <input
-              id="phone"
-              className={styles.inputInfo}
-              onChange={(event) => setUserPhone(event.target.value)}
-            ></input>
-            <p>Status</p>
-            <div id="rbuttons" className={styles.radiobuttonsCont}>
-              <div>
-                <input
-                  type="radio"
-                  name="status"
-                  id="Client"
-                  value="1"
-                  onChange={(event) => setUserStatus(event.target.id)}
-                ></input>
-                <label htmlFor="Client">Client</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="status"
-                  id="Partner"
-                  onChange={(event) => setUserStatus(event.target.id)}
-                ></input>
-                <label htmlFor="Partner">Partner</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="status"
-                  id="Admin"
-                  onChange={(event) => setUserStatus(event.target.id)}
-                ></input>
-                <label htmlFor="Admin">Admin</label>
+            <div className={styles.formTbs}>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                className={styles.inputInfo}
+                onChange={(event) => setUserName(event.target.value)}
+              ></input>
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                className={styles.inputInfo}
+                onChange={(event) => setUserMail(event.target.value)}
+              ></input>
+              <label htmlFor="password">Password</label>
+              <input
+                type="text"
+                id="password"
+                className={styles.inputInfo}
+                onChange={(event) => setUserPassword(event.target.value)}
+              ></input>
+              <label htmlFor="phone">Phone</label>
+              <input
+                type="text"
+                id="phone"
+                className={styles.inputInfo}
+                onChange={(event) => setUserPhone(event.target.value)}
+              ></input>
+            </div>
+            <div className={styles.statusChoose}>
+              <p>Status</p>
+              <div id="rbuttons" className={styles.radiobuttonsCont}>
+                <div className={styles.rbInputEl}>
+                  <input
+                    type="radio"
+                    name="status"
+                    id="Client"
+                    value="1"
+                    onChange={(event) => setUserStatus(event.target.id)}
+                  ></input>
+
+                  <label htmlFor="Client">Client</label>
+                </div>
+                <div className={styles.rbInputEl}>
+                  <input
+                    type="radio"
+                    name="status"
+                    id="Partner"
+                    onChange={(event) => setUserStatus(event.target.id)}
+                  ></input>
+                  <label htmlFor="Partner">Partner</label>
+                </div>
+                <div className={styles.rbInputEl}>
+                  <input
+                    type="radio"
+                    name="status"
+                    id="Admin"
+                    onChange={(event) => setUserStatus(event.target.id)}
+                  ></input>
+                  <label htmlFor="Admin">Admin</label>
+                </div>
               </div>
             </div>
           </form>
-          <div className={errorStatus}>{errorText}</div>
+          <div className={styles.errorBlock}>
+            <div className={errorStatus}>{errorText}</div>
+          </div>
           <button
             className={styles.buttonitself}
             onClick={() => processAdding()}
@@ -205,6 +296,7 @@ export default function UsersPlace() {
         </div>
         <div className={styles.usersList}>
           <div className={styles.filterContainer}>
+            <div className={styles.filterLabel}>Filter by status</div>
             <select
               id="selectedClass"
               onChange={() =>
@@ -216,6 +308,7 @@ export default function UsersPlace() {
               <option value="Partner">Partner</option>
               <option value="Admin">Admin</option>
             </select>
+            <div className={styles.filterLabel}>Filter by email</div>
             <input
               id="searchText"
               onChange={(e) => {
@@ -225,10 +318,14 @@ export default function UsersPlace() {
               type="text"
               value={seatchField}
             ></input>
+            <div className={styles.filterLabel}>Filter by phone</div>
+            {/* <input id="searchPhone" type="text" value={seatchField}></input> */}
           </div>
-          {usersToShow.map((item) => (
-            <UserDisplay key={item.userID} user={item}></UserDisplay>
-          ))}
+          <div className={styles.usersTable}>
+            {usersToShow.map((item) => (
+              <UserDisplay key={item.userID} user={item}></UserDisplay>
+            ))}
+          </div>
         </div>
       </div>
     </Context.Provider>
