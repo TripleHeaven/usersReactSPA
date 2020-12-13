@@ -1,126 +1,25 @@
-// [
-//   {
-//     userID: "1",
-//     email: "hayu@gmail.com",
-//     password: "12345",
-//     phone: "+79057372242",
-//     name: "Hay hay hay",
-//     status: "Partner",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "2",
-//     email: "hafffyu@gmail.com",
-//     password: "12345",
-//     phone: "+79057372242",
-//     name: "Hay hay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "4",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "5",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "6",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "7",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "8",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "9",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "9333",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-//   {
-//     userID: "10",
-//     email: "ha3fffyu@gmail.com",
-//     password: "12345",
-//     phone: "+71057372242",
-//     name: "Hay fffffhay hay",
-//     status: "Client",
-//     dateCreated: new Date(),
-//     lastChange: new Date(),
-//   },
-// ]
-
 import React, { useState, useEffect } from "react";
 import styles from "./UsersPlace.scss";
 import { UserT } from "../TypesTS/UserT";
 import { Context } from "../handlerContext";
 import UserCard from "../UserCard/UserCard";
+import RandomClient from "../RandomClient/RandomClient";
 // contain main functionality containing storing deleting etc. for clients
 export default function UsersPlace() {
   const [users, setUser] = useState<UserT[]>([]);
-
   // users to show is a copy of all users
   const [usersToShow, setShowUsers] = useState(users);
   useEffect(() => {
     const raw = localStorage.getItem("users") || [];
-    const newObj = JSON.parse(raw);
-
-    setUser(JSON.parse(raw));
+    setUser(JSON.parse(raw as string));
   }, []);
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
     setShowUsers(users);
+    filterThing(
+      (document.getElementById("searchText") as HTMLInputElement).value,
+      (document.getElementById("searchPhone") as HTMLInputElement).value
+    );
   }, [users]);
   const addUser = () => {
     setUser([
@@ -136,33 +35,20 @@ export default function UsersPlace() {
         lastChange: new Date(),
       },
     ]);
-    filterThing(
-      document.getElementById("searchText").value,
-      document.getElementById("searchPhone").value
-    );
-  };
-  const filterByMain = () => {
-    filterByStatus(
-      (document.getElementById("selectedClass") as HTMLSelectElement).value
-    );
-  };
-  const filterByStatus = (criteria: string) => {
-    if (criteria === "Empty") {
-      setShowUsers(users);
-    } else {
-      const newShowUsers = users.filter(function(user) {
-        return user.status === criteria;
-      });
-      setShowUsers(newShowUsers);
-    }
   };
   const filterThing = (letter: string, phoneN: string) => {
     let newShowUsers = users;
-    if (document.getElementById("selectedClass").value === "Empty") {
+    if (
+      (document.getElementById("selectedClass") as HTMLInputElement).value ===
+      "Empty"
+    ) {
       newShowUsers = users;
     } else {
       newShowUsers = newShowUsers.filter(function(user) {
-        return user.status === document.getElementById("selectedClass").value;
+        return (
+          user.status ===
+          (document.getElementById("selectedClass") as HTMLInputElement).value
+        );
       });
     }
     newShowUsers = newShowUsers.filter((userItem) => {
@@ -343,8 +229,10 @@ export default function UsersPlace() {
               id="selectedClass"
               onChange={() =>
                 filterThing(
-                  document.getElementById("searchText").value,
-                  document.getElementById("searchPhone").value
+                  (document.getElementById("searchText") as HTMLInputElement)
+                    .value,
+                  (document.getElementById("searchPhone") as HTMLInputElement)
+                    .value
                 )
               }
             >
@@ -359,13 +247,16 @@ export default function UsersPlace() {
               onChange={(e) => {
                 setSearch(e.target.value);
                 filterThing(
-                  document.getElementById("searchText").value,
-                  document.getElementById("searchPhone").value
+                  (document.getElementById("searchText") as HTMLInputElement)
+                    .value,
+                  (document.getElementById("searchPhone") as HTMLInputElement)
+                    .value
                 );
               }}
               type="text"
               value={seatchField}
             ></input>
+
             <div className={styles.filterLabel}>Filter by phone</div>
             <input
               id="searchPhone"
@@ -373,8 +264,10 @@ export default function UsersPlace() {
               onChange={(e) => {
                 setSearchPhone(e.target.value);
                 filterThing(
-                  document.getElementById("searchText").value,
-                  document.getElementById("searchPhone").value
+                  (document.getElementById("searchText") as HTMLInputElement)
+                    .value,
+                  (document.getElementById("searchPhone") as HTMLInputElement)
+                    .value
                 );
               }}
               value={seatchFieldPhone}

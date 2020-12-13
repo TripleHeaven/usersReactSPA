@@ -35,35 +35,34 @@ export default function UserCard({ user }: { user: UserT }) {
       (document.getElementById(
         phonetxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
-      setErrorStatus(styles.visible);
+
       return false;
     } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
       (document.getElementById(
         nametxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
-      setErrorText("Wrong name!");
-      setErrorStatus(styles.visible);
+
       return false;
     } else if (
       !userMail.match(
         /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
       )
     ) {
-      setErrorText("Wrong email!");
-      setErrorStatus(styles.visible);
       (document.getElementById(
         mailtxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
       return false;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
-      setErrorText("Please inter phone in +7 format");
-      setErrorStatus(styles.visible);
       (document.getElementById(
         phonetxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
       return false;
-    } else if (document.getElementById(passwordtxtID).value === "") {
-      document.getElementById(passwordtxtID).style.backgroundColor = "red";
+    } else if (
+      (document.getElementById(passwordtxtID) as HTMLInputElement).value === ""
+    ) {
+      (document.getElementById(
+        passwordtxtID
+      ) as HTMLInputElement).style.backgroundColor = "red";
       return false;
     } else {
       const newUsers = users;
@@ -82,8 +81,7 @@ export default function UserCard({ user }: { user: UserT }) {
         }
       }
       setUser(newUsers);
-      setErrorText("none");
-      setErrorStatus(styles.invisible);
+
       return true;
       // addUser();
     }
