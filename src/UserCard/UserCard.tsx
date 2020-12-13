@@ -23,7 +23,6 @@ export default function UserCard({ user }: { user: UserT }) {
   };
   const processEditing = () => {
     if (userName === "" || userMail === "" || userPhone === "") {
-      setErrorText("Not all fields are filled!");
       (document.getElementById(
         nametxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
@@ -97,19 +96,20 @@ export default function UserCard({ user }: { user: UserT }) {
         return timeValue;
       }
     };
+    m = new Date(m);
     return (
       m
-        .getUTCFullYear()
+        .getFullYear()
         .toString()
         .slice(2) +
       "/" +
-      (m.getUTCMonth() + 1) +
+      (m.getMonth() + 1) +
       "/" +
-      m.getUTCDate() +
+      m.getDate() +
       " " +
-      toDisplayTime(m.getUTCHours().toString()) +
+      toDisplayTime(m.getHours().toString()) +
       ":" +
-      toDisplayTime(m.getUTCMinutes().toString())
+      toDisplayTime(m.getMinutes().toString())
     );
   };
   const enterEditMod = () => {
@@ -165,8 +165,7 @@ export default function UserCard({ user }: { user: UserT }) {
     }
   };
   const [containerStyle, setContStyle] = useState(styles.userCardContainer);
-  const [errorText, setErrorText] = useState<string>("none");
-  const [errorStatus, setErrorStatus] = useState(styles.invisible);
+
   const [userName, setUserName] = useState<string>(user.name);
   const [userMail, setUserMail] = useState<string>(user.email);
   const [userStatus, setUserStatus] = useState<string>(user.status);

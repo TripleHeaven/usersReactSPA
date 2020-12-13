@@ -1,3 +1,106 @@
+// [
+//   {
+//     userID: "1",
+//     email: "hayu@gmail.com",
+//     password: "12345",
+//     phone: "+79057372242",
+//     name: "Hay hay hay",
+//     status: "Partner",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "2",
+//     email: "hafffyu@gmail.com",
+//     password: "12345",
+//     phone: "+79057372242",
+//     name: "Hay hay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "4",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "5",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "6",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "7",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "8",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "9",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "9333",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+//   {
+//     userID: "10",
+//     email: "ha3fffyu@gmail.com",
+//     password: "12345",
+//     phone: "+71057372242",
+//     name: "Hay fffffhay hay",
+//     status: "Client",
+//     dateCreated: new Date(),
+//     lastChange: new Date(),
+//   },
+// ]
+
 import React, { useState, useEffect } from "react";
 import styles from "./UsersPlace.scss";
 import { UserT } from "../TypesTS/UserT";
@@ -5,111 +108,16 @@ import { Context } from "../handlerContext";
 import UserCard from "../UserCard/UserCard";
 // contain main functionality containing storing deleting etc. for clients
 export default function UsersPlace() {
-  const [users, setUser] = useState<UserT[]>([
-    {
-      userID: "1",
-      email: "hayu@gmail.com",
-      password: "12345",
-      phone: "+79057372242",
-      name: "Hay hay hay",
-      status: "Partner",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "2",
-      email: "hafffyu@gmail.com",
-      password: "12345",
-      phone: "+79057372242",
-      name: "Hay hay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "4",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "5",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "6",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "7",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "8",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "9",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "9333",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-    {
-      userID: "10",
-      email: "ha3fffyu@gmail.com",
-      password: "12345",
-      phone: "+71057372242",
-      name: "Hay fffffhay hay",
-      status: "Client",
-      dateCreated: new Date(),
-      lastChange: new Date(),
-    },
-  ]);
+  const [users, setUser] = useState<UserT[]>([]);
 
   // users to show is a copy of all users
   const [usersToShow, setShowUsers] = useState(users);
+  useEffect(() => {
+    const raw = localStorage.getItem("users") || [];
+    const newObj = JSON.parse(raw);
+
+    setUser(JSON.parse(raw));
+  }, []);
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
     setShowUsers(users);
@@ -228,9 +236,9 @@ export default function UsersPlace() {
       setUserMail("");
       setUserPassword("");
       setUserPhone("");
-      document.getElementById("Admin").checked = false;
-      document.getElementById("Partner").checked = false;
-      document.getElementById("Client").checked = false;
+      (document.getElementById("Admin") as HTMLInputElement).checked = false;
+      (document.getElementById("Partner") as HTMLInputElement).checked = false;
+      (document.getElementById("Client") as HTMLInputElement).checked = false;
       addUser();
     }
   };
