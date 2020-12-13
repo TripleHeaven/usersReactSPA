@@ -3,6 +3,9 @@ body {
   margin: 0;
 }
 .userCardContainer {
+  .allOk {
+    background-color: #ffffff;
+  }
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,7 +17,9 @@ body {
   min-width: 905px;
   margin-bottom: 3px;
   padding: 5px;
-
+  .deleteButton {
+    background-color: #ff6565;
+  }
   .rbThing {
     display: flex;
     flex-direction: row;

@@ -6,9 +6,9 @@ body {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
+  margin-top: 50px;
   width: 90%;
-  height: 340px;
+  height: 540px;
   border-radius: 12px;
   font-family: "Roboto";
 }
@@ -19,7 +19,8 @@ body {
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 5px;
-  min-width: 200px;
+  height: 340px;
+  min-width: 150px;
   font-size: 16px;
   .radiobuttonsCont {
     background-color: white;

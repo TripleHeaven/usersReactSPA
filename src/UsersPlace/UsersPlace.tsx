@@ -107,9 +107,11 @@ export default function UsersPlace() {
       lastChange: new Date(),
     },
   ]);
+
   // users to show is a copy of all users
   const [usersToShow, setShowUsers] = useState(users);
   useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
     setShowUsers(users);
   }, [users]);
   const addUser = () => {
@@ -126,6 +128,10 @@ export default function UsersPlace() {
         lastChange: new Date(),
       },
     ]);
+    filterThing(
+      document.getElementById("searchText").value,
+      document.getElementById("searchPhone").value
+    );
   };
   const filterByMain = () => {
     filterByStatus(
@@ -145,7 +151,7 @@ export default function UsersPlace() {
   const filterThing = (letter: string, phoneN: string) => {
     let newShowUsers = users;
     if (document.getElementById("selectedClass").value === "Empty") {
-      setShowUsers(users);
+      newShowUsers = users;
     } else {
       newShowUsers = newShowUsers.filter(function(user) {
         return user.status === document.getElementById("selectedClass").value;
@@ -179,7 +185,9 @@ export default function UsersPlace() {
       (document.getElementById("rbuttons") as HTMLInputElement).className =
         styles.errorRb;
       setErrorStatus(styles.visible);
-    } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
+    } else if (
+      !userName.match(/([A-Za-z]|[А-Яа-я]+\s){2}([A-Za-z]|[А-Яа-я]+$)/)
+    ) {
       (document.getElementById("name") as HTMLInputElement).className =
         styles.error;
       setErrorText("Wrong name!");
@@ -194,7 +202,7 @@ export default function UsersPlace() {
       (document.getElementById("email") as HTMLInputElement).className =
         styles.error;
     } else if (!userPhone.match(/^\+?7(\d{10})$/)) {
-      setErrorText("Please inter phone in +7 format");
+      setErrorText("Please inter phone in +79057372242 format");
       setErrorStatus(styles.visible);
       (document.getElementById("phone") as HTMLInputElement).className =
         styles.error;
@@ -204,8 +212,25 @@ export default function UsersPlace() {
       (document.getElementById("rbuttons") as HTMLInputElement).className =
         styles.errorRb;
     } else {
+      (document.getElementById("name") as HTMLInputElement).className =
+        styles.allOk;
+      (document.getElementById("email") as HTMLInputElement).className =
+        styles.addUserContainer;
+      (document.getElementById("password") as HTMLInputElement).className =
+        styles.allOk;
+      (document.getElementById("phone") as HTMLInputElement).className =
+        styles.allOk;
+      (document.getElementById("rbuttons") as HTMLInputElement).className =
+        styles.allOk;
       setErrorText("none");
       setErrorStatus(styles.invisible);
+      setUserName("");
+      setUserMail("");
+      setUserPassword("");
+      setUserPhone("");
+      document.getElementById("Admin").checked = false;
+      document.getElementById("Partner").checked = false;
+      document.getElementById("Client").checked = false;
       addUser();
     }
   };
@@ -229,11 +254,13 @@ export default function UsersPlace() {
                 type="text"
                 id="name"
                 className={styles.inputInfo}
+                value={userName}
                 onChange={(event) => setUserName(event.target.value)}
               ></input>
               <label htmlFor="email">Email</label>
               <input
                 type="text"
+                value={userMail}
                 id="email"
                 className={styles.inputInfo}
                 onChange={(event) => setUserMail(event.target.value)}
@@ -242,6 +269,7 @@ export default function UsersPlace() {
               <input
                 type="text"
                 id="password"
+                value={userPassword}
                 className={styles.inputInfo}
                 onChange={(event) => setUserPassword(event.target.value)}
               ></input>
@@ -249,6 +277,7 @@ export default function UsersPlace() {
               <input
                 type="text"
                 id="phone"
+                value={userPhone}
                 className={styles.inputInfo}
                 onChange={(event) => setUserPhone(event.target.value)}
               ></input>
@@ -305,7 +334,10 @@ export default function UsersPlace() {
             <select
               id="selectedClass"
               onChange={() =>
-                filterThing(document.getElementById("searchText").value)
+                filterThing(
+                  document.getElementById("searchText").value,
+                  document.getElementById("searchPhone").value
+                )
               }
             >
               <option value="Empty">Empty</option>

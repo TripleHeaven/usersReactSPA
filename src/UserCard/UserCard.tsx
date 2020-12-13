@@ -294,7 +294,9 @@ export default function UserCard({ user }: { user: UserT }) {
       </div>
       <div className={styles.buttons}>
         <button onClick={() => actionEditHandler()}>{editButtonTxt}</button>
-        <button onClick={() => deleteUser()}>Delete</button>
+        <button onClick={() => deleteUser()} className={styles.deleteButton}>
+          Delete
+        </button>
       </div>
     </div>
   );
