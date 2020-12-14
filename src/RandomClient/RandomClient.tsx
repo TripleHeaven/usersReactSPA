@@ -1,6 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import styles from "./RandomClient.scss";
-import { UserT } from "../TypesTS/UserT";
+import React, { useContext } from "react";
 import { Context } from "../handlerContext";
 // contain main functionality containing storing deleting etc. for clients
 export default function RandomClient() {
