@@ -11,11 +11,11 @@ export default function RandomClient() {
   ];
   const names = [
     "Буров Илья Вячеславович",
-    "Mike Puck",
-    "Alex Darkstalker",
-    "Sofia Mark",
-    "Eddy Murk",
-    "Lee Scott",
+    "Mike Puck Duck",
+    "Alex Darkstalker Tony",
+    "Sofia Mark Devu",
+    "Eddy Murk Papo",
+    "Lee Scott Meal",
   ];
   const password = ["test"];
   const phones = ["+71234372242"];

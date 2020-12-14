@@ -37,17 +37,7 @@ export default function UserCard({ user }: { user: UserT }) {
       ) as HTMLInputElement).style.backgroundColor = "red";
 
       return false;
-    } else if (!userName.match(/([A-Za-z]+\s){2}([A-Za-z]+$)/)) {
-      (document.getElementById(
-        nametxtID
-      ) as HTMLInputElement).style.backgroundColor = "red";
-
-      return false;
-    } else if (
-      !userMail.match(
-        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
-      )
-    ) {
+    } else if (!userName.match(/([A-Za-zА-Яа-я]+\s){2}([A-Za-zА-Яа-я]+$)/)) {
       (document.getElementById(
         mailtxtID
       ) as HTMLInputElement).style.backgroundColor = "red";
@@ -113,7 +103,19 @@ export default function UserCard({ user }: { user: UserT }) {
   const enterEditMod = () => {
     setContStyle(styles.userCardContainerEdit);
     setEditButtonTxt("Done");
-    (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = false;
+    (document.getElementById(
+      nametxtID
+    ) as HTMLInputElement).style.backgroundColor = "rgba(255,125,0,0.7)";
+    (document.getElementById(
+      phonetxtID
+    ) as HTMLInputElement).style.backgroundColor = "rgba(255,125,0,0.7)";
+    (document.getElementById(
+      mailtxtID
+    ) as HTMLInputElement).style.backgroundColor = "rgba(255,125,0,0.7)";
+    (document.getElementById(
+      passwordtxtID
+    ) as HTMLInputElement).style.backgroundColor = "rgba(255,125,0,0.7)";
+    (document.getElementById(nametxtID) as HTMLInputElement).readOnly = false;
     (document.getElementById(phonetxtID) as HTMLInputElement).readOnly = false;
     (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = false;
     (document.getElementById(
@@ -141,7 +143,8 @@ export default function UserCard({ user }: { user: UserT }) {
         "white";
       (document.getElementById(mailtxtID) as any).style.backgroundColor =
         "white";
-      (document.getElementById(passwordtxtID) as any).backgroundColor = "white";
+      (document.getElementById(passwordtxtID) as any).style.backgroundColor =
+        "white";
       (document.getElementById(phonetxtID) as HTMLInputElement).readOnly = true;
       (document.getElementById(mailtxtID) as HTMLInputElement).readOnly = true;
       (document.getElementById(
@@ -157,7 +160,7 @@ export default function UserCard({ user }: { user: UserT }) {
   const actionEditHandler = () => {
     if (containerStyle === styles.userCardContainerEdit) {
       exitEditMod();
-    } else if (!processEditing()) {
+      // } else if (!processEditing()) {
     } else {
       enterEditMod();
     }
