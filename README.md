@@ -9,7 +9,7 @@ yarn start
 
 ![](mainpage.png "Main Page")
 
-![](edit.png "Detailed contact page")
+![](validation.png "Validation")
 
 ![](edit.png "Detailed contact page")
 
